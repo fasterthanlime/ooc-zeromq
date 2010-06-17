@@ -37,10 +37,7 @@ server: func(ctx: Context) {
             while (true) {
                 //  Get a request from the dispatcher.
                 request := s recv()
-                "Got a Message!" println()
-                message := request data() as Octet*
-                printf("%d, %p", message as String length(), message)
-                printf("==> %s \n", message)
+                " < %s" printfln(request data())
                 
                 //  Send the reply. No point in filling the data in as the client
                 //  is a dummy and won't check it anyway.
@@ -59,14 +56,14 @@ client: func(args: ArrayList<String>, ctx: Context) {
     //  This client is a requester
     //  Connect to the server
     addr := args size() < 2 ? "tcp://localhost:5555" : "tcp://%s:5555" format(args[1])
-    "Connecting to %s" format(addr) println()
+    "Connecting to %s" printfln(addr)
     s := Socket new(ctx, SocketType req). connect(addr)
     
     //  Send 20 requests and receive 20 replies
     for (i in 0..26) {
         //scan the user's message
+        " > " print(); stdout flush()
         message := stdin readLine()
-        printf("%d \n", message length())
         
         //  Send the request. No point in filling the content in as server
         //  is a dummy and won't use it anyway.
@@ -74,7 +71,5 @@ client: func(args: ArrayList<String>, ctx: Context) {
                 
         //  Get the reply
         reply := s recv()
-        
-        "Got reply %d" format(i) println()
     }
 }
