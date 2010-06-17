@@ -2,6 +2,8 @@ use zeromq
 
 /**
    0MQ bindings
+
+   These are distributed under a BSD license. See the 'LICENSE' file for more details.
     
    :author: Amos Wenger (nddrylliog)
  */
