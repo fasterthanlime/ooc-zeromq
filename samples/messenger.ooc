@@ -59,8 +59,7 @@ client: func(args: ArrayList<String>, ctx: Context) {
     "Connecting to %s" printfln(addr)
     s := Socket new(ctx, SocketType req). connect(addr)
     
-    //  Send 20 requests and receive 20 replies
-    for (i in 0..26) {
+    while (true) {
         //scan the user's message
         " > " print(); stdout flush()
         message := stdin readLine()
