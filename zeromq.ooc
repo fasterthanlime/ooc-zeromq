@@ -1,7 +1,7 @@
 use zeromq
 
 /**
-   0MZ bindings
+   0MQ bindings
     
    :author: Amos Wenger (nddrylliog)
  */
