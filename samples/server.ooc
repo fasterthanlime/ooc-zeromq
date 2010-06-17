@@ -8,16 +8,16 @@ main: func {
     ctx := Context new(1)
     
     //  Create an endpoint for worker threads to connect to.
-    //  We are using XREQ socket so that processing of one request
+    //  We are using an XREQ socket so that processing of one request
     //  won't block other requests.
     workers := Socket new(ctx, SocketType xreq)
     workers bind("inproc://workers")
     
     //  Create an endpoint for client applications to connect to.
-    //  We are usign XREP socket so that processing of one request
+    //  We are using an XREP socket so that processing of one request
     //  won't block other requests.
     clients := Socket new(ctx, SocketType xrep)
-    clients bind("tcp://lo:5555")
+    clients bind("tcp://0.0.0.0:5555")
  
     //  Launch 10 worker threads.
     for (i in 0..10) {
@@ -34,6 +34,8 @@ main: func {
             while (true) {
                 //  Get a request from the dispatcher.
                 request := s recv()
+                
+                "Got a request!" println()
                 
                 //  Our server does no real processing. So let's sleep for a while
                 //  to simulate actual processing.
