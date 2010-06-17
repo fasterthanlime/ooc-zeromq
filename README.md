@@ -3,7 +3,7 @@
 About ØMQ
 ---------
 
-[http://www.zeromq.org]()
+[http://www.zeromq.org](http://www.zeromq.org)
 
 ØMQ is a library which extends the standard socket interfaces with features
 traditionally provided by specialised messaging middleware products.
@@ -15,7 +15,7 @@ seamless access to multiple transport protocols and more.
 About ooc
 ---------
 
-[http://ooc-lang.org]()
+[http://ooc-lang.org](http://www.zeromq.org)
 
 ooc is a modern, self-hosting, object-oriented, functional-ish,
 high-level, low-level sexy programming language, starring closures,
