@@ -36,7 +36,7 @@ Make games. Replace Jabber. Hit the ground running.
 License
 -------
 
-ooc-zeromq is released under a BSD License. Don't sue me!
+ooc-zeromq is released under a BSD License. See the 'LICENSE' file for details.
 
 Final word
 ----------
