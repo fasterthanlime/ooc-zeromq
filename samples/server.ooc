@@ -34,13 +34,13 @@ main: func {
             while (true) {
                 //  Get a request from the dispatcher.
                 request := s recv()
-                
+                printf("%s \n", request data())
                 "Got a request!" println()
                 
                 //  Our server does no real processing. So let's sleep for a while
                 //  to simulate actual processing.
                 Time sleepSec(1)
-
+                
                 //  Send the reply. No point in filling the data in as the client
                 //  is a dummy and won't check it anyway.
                 s send(Message new(10))

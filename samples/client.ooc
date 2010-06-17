@@ -13,10 +13,12 @@ main: func (args: ArrayList<String>) {
     
     //  Send 20 requests and receive 20 replies
     for (i in 0..20) {
+        //scan the user's message
+        message := stdin readLine()
         
         //  Send the request. No point in filling the content in as server
         //  is a dummy and won't use it anyway.
-        s send(Message new(10))
+        s send(Message new(message, message length(), null, null))
         
         "Sent request %d" format(i) println()
         
