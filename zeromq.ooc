@@ -131,7 +131,7 @@ SocketType: enum {
 }
 
 SocketOption: enum {
-    hqm         : extern(ZMQ_HWM)
+    hwm         : extern(ZMQ_HWM)
     swap        : extern(ZMQ_SWAP)
     affinity    : extern(ZMQ_AFFINITY)
     identity    : extern(ZMQ_IDENTITY)
