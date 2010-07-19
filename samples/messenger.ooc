@@ -19,7 +19,7 @@ server: func(ctx: Context) {
     while (true) {
         //  Get a request from the dispatcher.
         request := s recv()
-        " < %s" printfln(request data())
+        " < %s\n > " printf(request data()); stdout flush()
     }
 }
 client: func(args: ArrayList<String>, ctx: Context) {
