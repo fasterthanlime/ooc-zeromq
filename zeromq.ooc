@@ -167,11 +167,11 @@ Socket: cover from Pointer {
         zmq_getsockopt(this, option as Int, optval, optvalLength)
     }
 
-    bind: inline func (addr: const Char*) -> Int {
+    bind: inline func (addr: String) -> Int {
         zmq_bind(this, addr)
     }
 
-    connect: inline func (addr: const Char*) -> Int {
+    connect: inline func (addr: String) -> Int {
         zmq_connect(this, addr)
     }
 
