@@ -2,3 +2,5 @@
 client
 server
 messenger
+*_tmp
+.*.swp

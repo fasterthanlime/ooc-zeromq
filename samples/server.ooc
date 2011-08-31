@@ -17,7 +17,10 @@ main: func {
     //  We are using an XREP socket so that processing of one request
     //  won't block other requests.
     clients := Socket new(ctx, SocketType xrep)
-    clients bind("tcp://0.0.0.0:5555")
+    port := 5555
+    clients bind("tcp://0.0.0.0:%d" format(port))
+
+    "Now listening on port %d" printfln(port)
  
     //  Launch 10 worker threads.
     for (i in 0..10) {
@@ -34,16 +37,13 @@ main: func {
             while (true) {
                 //  Get a request from the dispatcher.
                 request := s recv()
-                printf("%s \n", request data())
-                "Got a request!" println()
-                
-                //  Our server does no real processing. So let's sleep for a while
-                //  to simulate actual processing.
-                Time sleepSec(1)
-                
-                //  Send the reply. No point in filling the data in as the client
-                //  is a dummy and won't check it anyway.
-                s send(Message new(10))
+
+                "> %s" printfln(request data())
+            
+                resp := String new(request data()) + " LOOOL"   
+                "< %s" printfln(resp)
+
+                s send(Message new(resp toCString(), resp length() + 1, null, null))
             }
         ) start()
     }

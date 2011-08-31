@@ -7,25 +7,32 @@ main: func (args: ArrayList<String>) {
     //  One I/O thread in the thread pool will do.
     //  This client is a requester
     //  Connect to the server
-    addr := args size < 2 ? "tcp://localhost:5555" : "tcp://%s:5555" format(args[1])
+    port := 5555
+
+    addr := "tcp://%s:%d" format(match {
+        case args size > 1 => args[1]
+        case               => "localhost"
+    }, port)
+
     "Connecting to %s" format(addr toCString()) println()
     s := Socket new(Context new(1), SocketType req). connect(addr)
     
-    //  Send 20 requests and receive 20 replies
-    for (i in 0..20) {
-        //scan the user's message
+    while (true) {
+        "> " print()
+        stdout flush()
+
         message := stdin readLine()
-        
-        //  Send the request. No point in filling the content in as server
-        //  is a dummy and won't use it anyway.
-        s send(Message new(message toCString(), message length(), null, null))
-        
-        "Sent request %d" format(i) println()
-        
-        //  Get the reply
+
+        // zeromq messages are binary strings, they don't care about encoding and stuff
+        // we just use C-style zero-terminated strings here.
+        s send(Message new(message toCString(), message length() + 1, null, null))
+
+        // recv is a blocking call
         reply := s recv()
-        
-        "Got reply %d" format(i) println()
+
+        // Let's hope the server isn't sending some carefully crafted byte sequence
+        // that might make our client execute code as root. Oh noes!
+        "< %s" printfln(reply data())
     }
     
 }
