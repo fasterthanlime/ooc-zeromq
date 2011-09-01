@@ -14,7 +14,7 @@ main: func (args: ArrayList<String>) {
         case               => "localhost"
     }, port)
 
-    "Connecting to %s" format(addr toCString()) println()
+    "Speaking with server %s" format(addr toCString()) println()
     s := Socket new(Context new(1), SocketType req). connect(addr)
     
     while (true) {
@@ -22,6 +22,7 @@ main: func (args: ArrayList<String>) {
         stdout flush()
 
         message := stdin readLine()
+        if(stdin eof?()) break;
 
         // zeromq messages are binary strings, they don't care about encoding and stuff
         // we just use C-style zero-terminated strings here.

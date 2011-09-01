@@ -1,5 +1,5 @@
 use zeromq
-import zeromq, threading/Thread, os/Time
+import zeromq, threading/Thread, os/Time, structs/ArrayList
 
 main: func {
     
@@ -21,10 +21,10 @@ main: func {
     clients bind("tcp://0.0.0.0:%d" format(port))
 
     "Now listening on port %d" printfln(port)
- 
+
     //  Launch 10 worker threads.
     for (i in 0..10) {
-        Thread new(||
+        t := Thread new(||
             //  This is the body of the worker thread(s).
 
             //  Worker thread is a 'replier', i.e. it receives requests and returns
@@ -45,7 +45,8 @@ main: func {
 
                 s send(Message new(resp toCString(), resp length() + 1, null, null))
             }
-        ) start()
+        )
+        t start()
     }
 
     //  Use queue device as a dispatcher of messages from clients to worker
